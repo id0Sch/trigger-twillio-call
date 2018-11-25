@@ -1,27 +1,22 @@
-var http = require("https");
+const request = require('request')
 
-module.exports = (req,res)=>{
+function myFunc (cb) {
+  var options = {
+    "uri": `https://api.twilio.com/2010-04-01/Accounts/${process.env.SID}/Calls.json`,
+    "headers": {
+      "authorization": `Basic ${process.env.AUTH_KEY}`
+    },
+    form: {
+      'To': process.env.TO_NUMBER,
+      'From': process.env.FROM_NUMBER,
+      'Url': process.env.TWIML_URL,
+      'Method': 'POST',
+      'Record': true
+    }
+  };
+  request.post(options, cb)
+}
 
-var options = {
-  "method": "POST",
-  "hostname": "api.twilio.com",
-  "port": null,
-  "path": `/2010-04-01/Accounts/${process.env.TWIL_BIN}/Calls.json`,
-  "headers": {
-    "authorization": `Basic ${process.env.AUTH_KEY}`
-  }
-};
-
-var twilReq = http.request(options, function (twilRes) {
-  twilRes.on("end", function () {
-    res.end('Making a call!');
-  });
-});
-
-twilReq.write(`To=${process.env.TO_NUMBER}`);
-twilReq.write(`From=${process.env.FROM_NUMBER}`);
-twilReq.write(`Url=${process.env.TWIML_URL}`);
-twilReq.write('Method=POST');
-twilReq.write('Record=true');
-twilReq.end();
+module.exports = async (_, res) => {
+  myFunc(() => res.end('making a call'))
 }
