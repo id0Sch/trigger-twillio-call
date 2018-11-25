@@ -14,7 +14,7 @@ var options = {
 
 var twilReq = http.request(options, function (twilRes) {
   twilRes.on("end", function () {
-    res.send('Making a call!');
+    res.end('Making a call!');
   });
 });
 
