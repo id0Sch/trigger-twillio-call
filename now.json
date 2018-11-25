@@ -1,4 +1,9 @@
 {
+   "version": 2,
+    "name": "nodejs",
+    "builds": [
+        { "src": "*.js", "use": "@now/node" }
+    ],
   "env": {
     "AUTH_KEY": "@auth-key",
     "TO_NUMBER":"@to-number",
