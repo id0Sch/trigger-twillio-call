@@ -20,7 +20,7 @@ var twilReq = http.request(options, function (twilRes) {
 
 twilReq.write(`To=${process.env.TO_NUMBER}`);
 twilReq.write(`From=${process.env.FROM_NUMBER}`);
-twilReq.write(`Url=process.env.TWIML_URL`);
+twilReq.write(`Url=${process.env.TWIML_URL}`);
 twilReq.write('Method=POST');
 twilReq.write('Record=true');
 twilReq.end();
